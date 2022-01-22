@@ -1,46 +1,39 @@
+import 'package:app/ui/view/base_view.dart';
+import 'package:app/ui/view/profile_view.dart';
+import 'package:app/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  static const String id = 'home_view';
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+    return BaseView<HomeViewModel>(
+      builder: (context, model, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Home Page'),
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ProfileView.id);
+                },
+                icon: const Icon(Icons.person),
+              ),
+            ],
+          ),
+          body: const Center(
+            child: Text('Welcome to HomePage'),
+          ),
+        );
+      },
     );
   }
 }
