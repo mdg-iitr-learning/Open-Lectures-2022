@@ -20,8 +20,8 @@ class HomeViewModel extends BaseViewModel {
     getData();
   }
 
-  void getData() async {
-    setState(ViewState.BUSY);
+  Future<void> getData({bool isReload = false}) async {
+    if (!isReload) setState(ViewState.BUSY);
     try {
       data = await api.getData();
     } catch (e) {

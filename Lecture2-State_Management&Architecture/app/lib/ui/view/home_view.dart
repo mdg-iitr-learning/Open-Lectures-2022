@@ -36,26 +36,29 @@ class _HomeViewState extends State<HomeView> {
               ),
             ],
           ),
-          body: model.state == ViewState.IDLE
-              ? ListView.builder(
-                  itemCount: model.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    DataModel data = model.data[index];
-                    return CustomListTile(
-                      flag: data.flag,
-                      country: data.country,
-                      active: data.active,
-                      recovered: data.recovered,
-                    );
-                  },
-                )
-              : model.state == ViewState.ERROR
-                  ? Center(
-                      child: Text(model.errorMessage),
-                    )
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+          body: RefreshIndicator(
+            onRefresh: () => model.getData(isReload: true),
+            child: model.state == ViewState.IDLE
+                ? ListView.builder(
+                    itemCount: model.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      DataModel data = model.data[index];
+                      return CustomListTile(
+                        flag: data.flag,
+                        country: data.country,
+                        active: data.active,
+                        recovered: data.recovered,
+                      );
+                    },
+                  )
+                : model.state == ViewState.ERROR
+                    ? Center(
+                        child: Text(model.errorMessage),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+          ),
         );
       },
     );
