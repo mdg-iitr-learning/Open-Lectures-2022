@@ -1,3 +1,4 @@
+import 'package:app/services/api_service.dart';
 import 'package:app/services/firebase_auth_service.dart';
 import 'package:app/services/local_storage_service.dart';
 import 'package:app/viewmodel/home_viewmodel.dart';
@@ -15,6 +16,7 @@ Future<void> setUpLocator() async {
     await LocalStorageService.getInstance(),
   );
   locator.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
+  locator.registerSingleton<ApiService>(ApiService());
 
   // Viewmodel
   locator.registerFactory<StartUpViewModel>(() => StartUpViewModel());
