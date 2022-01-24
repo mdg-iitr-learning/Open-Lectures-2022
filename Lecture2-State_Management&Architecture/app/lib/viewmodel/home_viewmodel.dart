@@ -2,28 +2,63 @@ import 'package:app/enums/view_state.dart';
 import 'package:app/locator.dart';
 import 'package:app/model/data_model.dart';
 import 'package:app/services/api_service.dart';
+import 'package:app/services/firebase_service.dart';
 import 'package:app/viewmodel/base_viewmodel.dart';
 
 class HomeViewModel extends BaseViewModel {
   final ApiService api = locator<ApiService>();
+  final FirebaseService service = locator<FirebaseService>();
+  int _currentIndex = 0;
 
-  late List<DataModel> _data;
+  late Map<String, DataModel> _data, _allCountries, _favorites;
 
-  List<DataModel> get data => _data;
+  Map<String, DataModel> get data => _data;
+  int get currentIndex => _currentIndex;
 
-  set data(List<DataModel> data) {
-    _data = data;
+  set currentIndex(int index) {
+    _currentIndex = index;
+    if (index == 0) {
+      _data = _allCountries;
+    } else {
+      _data = _favorites;
+    }
     notifyListeners();
   }
 
-  void onModelReady() {
-    getData();
+  void updateFavorites(DataModel item, bool toAdd) {
+    if (toAdd) {
+      _favorites[item.country] = item;
+    } else {
+      _favorites.remove(item.country);
+    }
+    notifyListeners();
   }
 
-  Future<void> getData({bool isReload = false}) async {
-    if (!isReload) setState(ViewState.BUSY);
+  void onModelReady() async {
+    _favorites = {};
+    _data = _allCountries = {};
+    await getData();
+    for (var res in await service.fetchFavorites()) {
+      _favorites[res] = _allCountries[res]!;
+    }
+  }
+
+  Future saveFavorites() async {
+    await service.saveFavorites(_favorites.keys.toList());
+  }
+
+  Future<void> getData() async {
+    setState(ViewState.BUSY);
     try {
-      data = await api.getData();
+      for (var res in await api.getData()) {
+        _allCountries[res.country] = res;
+      }
+
+      for (var key in _favorites.keys) {
+        _favorites[key] = _allCountries[key]!;
+      }
+
+      _data = _currentIndex == 0 ? _allCountries : _favorites;
     } catch (e) {
       setState(ViewState.ERROR);
       setErrorMessage(e.toString());

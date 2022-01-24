@@ -6,6 +6,7 @@ class CustomListTile extends StatelessWidget {
     required this.country,
     required this.active,
     required this.recovered,
+    this.onLongPressed,
     Key? key,
   }) : super(key: key);
 
@@ -13,6 +14,7 @@ class CustomListTile extends StatelessWidget {
   final String country;
   final int active;
   final int recovered;
+  final Function()? onLongPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,7 @@ class CustomListTile extends StatelessWidget {
           ],
         ),
       ),
+      onLongPress: onLongPressed,
     );
   }
 }

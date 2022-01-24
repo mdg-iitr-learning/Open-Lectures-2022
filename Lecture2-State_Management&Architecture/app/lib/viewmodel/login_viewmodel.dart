@@ -1,5 +1,5 @@
 import 'package:app/locator.dart';
-import 'package:app/services/firebase_auth_service.dart';
+import 'package:app/services/firebase_service.dart';
 import 'package:app/services/local_storage_service.dart';
 import 'package:app/utils/validators.dart';
 import 'package:app/viewmodel/base_viewmodel.dart';
@@ -11,8 +11,7 @@ class LoginViewModel extends BaseViewModel {
   bool _isHidden = true;
 
   // Services
-  final FirebaseAuthService _firebaseAuthService =
-      locator<FirebaseAuthService>();
+  final FirebaseService _firebaseService = locator<FirebaseService>();
   final LocalStorageService _localStorageService =
       locator<LocalStorageService>();
 
@@ -46,7 +45,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<bool> login() async {
-    var res = await _firebaseAuthService.signIn(
+    var res = await _firebaseService.signIn(
       _emailController.text.trim(),
       _passwordController.text,
     );

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class FirebaseAuthService {
+class FirebaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
@@ -34,8 +34,10 @@ class FirebaseAuthService {
 
       await _firebaseFirestore
           .collection('Users')
-          .doc(_user.user!.email)
-          .set({'name': name, 'phone': 'Phone', 'enrollment': 'Enrollment'})
+          .doc(_user.user!.uid)
+          .set({
+            'name': name,
+          })
           .then((value) => debugPrint('User Created : ${_user.user!.email}'))
           .catchError((e) => debugPrint('Database Error!'));
       return _user;
@@ -44,6 +46,38 @@ class FirebaseAuthService {
           signUpErrorCodes[e.code] ?? 'Firebase ${e.code} Error Occured!');
     } catch (e) {
       debugPrint('${e.toString()} Error Occured!');
+    }
+  }
+
+  // Save Favorites
+  Future saveFavorites(List<String> countries) async {
+    try {
+      await _firebaseFirestore.collection('Users').doc(currentUser.uid).set(
+        {
+          'favorites': countries,
+        },
+        SetOptions(merge: true),
+      );
+    } on FirebaseAuthException catch (e) {
+      throw signUpErrorCodes[e.code] ?? 'Firebase ${e.code} Error Occured!';
+    } catch (e) {
+      throw '${e.toString()} Error Occured!';
+    }
+  }
+
+  // Fetch Favorites
+  Future<List<String>> fetchFavorites() async {
+    try {
+      var snapshot = await _firebaseFirestore
+          .collection('Users')
+          .doc(currentUser.uid)
+          .get();
+      return List.castFrom<dynamic, String>(
+          snapshot.data()?['favorites'] ?? []);
+    } on FirebaseAuthException catch (e) {
+      throw signUpErrorCodes[e.code] ?? 'Firebase ${e.code} Error Occured!';
+    } catch (e) {
+      throw '${e.toString()} Error Occured!';
     }
   }
 
