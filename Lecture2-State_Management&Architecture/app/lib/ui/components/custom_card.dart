@@ -23,8 +23,12 @@ class CustomListTile extends StatelessWidget {
           BuildContext context,
           Widget child,
           ImageChunkEvent? loadingProgress,
-        ) =>
-            const CircularProgressIndicator(),
+        ) {
+          if (loadingProgress == null) return child;
+          return const CircularProgressIndicator();
+        },
+        height: 50,
+        width: 50,
         errorBuilder:
             (BuildContext context, Object object, StackTrace? trace) =>
                 const CircularProgressIndicator(
