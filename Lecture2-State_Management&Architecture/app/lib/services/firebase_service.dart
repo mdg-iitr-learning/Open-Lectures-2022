@@ -81,6 +81,37 @@ class FirebaseService {
     }
   }
 
+  // Fetch User Information
+  Future<String> fetchUserInformation() async {
+    try {
+      var snapshot = await _firebaseFirestore
+          .collection('Users')
+          .doc(currentUser.uid)
+          .get();
+      return snapshot.data()?['name'] as String;
+    } on FirebaseAuthException catch (e) {
+      throw signUpErrorCodes[e.code] ?? 'Firebase ${e.code} Error Occured!';
+    } catch (e) {
+      throw '${e.toString()} Error Occured!';
+    }
+  }
+
+  // Update user information
+  Future updateUserInformation(String name) async {
+    try {
+      await _firebaseFirestore.collection('Users').doc(currentUser.uid).set(
+        {
+          'name': name,
+        },
+        SetOptions(merge: true),
+      );
+    } on FirebaseAuthException catch (e) {
+      throw signUpErrorCodes[e.code] ?? 'Firebase ${e.code} Error Occured!';
+    } catch (e) {
+      throw '${e.toString()} Error Occured!';
+    }
+  }
+
   // Sign Out
   Future<String> signOut() async {
     await _firebaseAuth.signOut();

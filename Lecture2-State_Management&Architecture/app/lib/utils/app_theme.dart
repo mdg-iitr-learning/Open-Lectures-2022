@@ -44,4 +44,5 @@ class AppTheme {
   static const Color blackPrimary = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
   static const Color whiteSecondary = Color(0x1CC4C4C4);
+  static const Color lightBlue = Color(0xFF03A9F4);
 }

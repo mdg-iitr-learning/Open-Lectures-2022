@@ -25,12 +25,13 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void updateFavorites(DataModel item, bool toAdd) {
+  void updateFavorites(DataModel item, bool toAdd) async {
     if (toAdd) {
       _favorites[item.country] = item;
     } else {
       _favorites.remove(item.country);
     }
+    await service.saveFavorites(_favorites.keys.toList());
     notifyListeners();
   }
 
@@ -41,10 +42,6 @@ class HomeViewModel extends BaseViewModel {
     for (var res in await service.fetchFavorites()) {
       _favorites[res] = _allCountries[res]!;
     }
-  }
-
-  Future saveFavorites() async {
-    await service.saveFavorites(_favorites.keys.toList());
   }
 
   Future<void> getData() async {
