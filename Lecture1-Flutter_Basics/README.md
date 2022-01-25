@@ -1,3 +1,6 @@
+# Watch The Workshop Here
+https://www.youtube.com/watch?v=BFd6syGPvoM
+
 # flutter_lecture1_b25
 
 A new Flutter project.
