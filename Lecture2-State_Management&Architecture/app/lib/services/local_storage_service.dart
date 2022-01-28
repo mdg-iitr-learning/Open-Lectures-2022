@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
+  // Common
   static late LocalStorageService _instance;
   static late SharedPreferences _preferences;
 
@@ -10,11 +11,7 @@ class LocalStorageService {
 
     return _instance;
   }
-
-  // Keys
-  static const String isLoggedInKey = 'is_logged_in_key';
-
-  // Utils
+  
   dynamic _getFromDisk(String key) {
     final value = _preferences.get(key);
     return value;
@@ -33,6 +30,10 @@ class LocalStorageService {
       _preferences.setStringList(key, content);
     }
   }
+
+  // Specifics
+  // For [isLoggedIn]
+  static const String isLoggedInKey = 'is_logged_in_key';
 
   bool get isLoggedIn => _getFromDisk(isLoggedInKey) ?? false;
 
