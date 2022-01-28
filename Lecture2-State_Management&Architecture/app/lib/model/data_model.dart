@@ -19,7 +19,7 @@ class DataModel {
     return DataModel(
       cases: json['cases'],
       todayCases: json['todayCases'],
-      ecovered: json['recovered'],
+      recovered: json['recovered'],
       active: json['active'],
       country: json['country'],
       flag:(json['countryInfo'] as Map<String, dynamic>)['flag'] as String,
