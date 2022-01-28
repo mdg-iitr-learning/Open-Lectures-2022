@@ -15,13 +15,16 @@ class DataModel {
     required this.flag,
   });
 
-  DataModel.fromJson(Map<String, dynamic> json)
-      : cases = json['cases'],
-        todayCases = json['todayCases'],
-        recovered = json['recovered'],
-        active = json['active'],
-        country = json['country'],
-        flag = (json['countryInfo'] as Map<String, dynamic>)['flag'] as String;
+  factory DataModel.fromJson(Map<String, dynamic> json) {
+    return DataModel(
+      cases: json['cases'],
+      todayCases: json['todayCases'],
+      ecovered: json['recovered'],
+      active: json['active'],
+      country: json['country'],
+      flag:(json['countryInfo'] as Map<String, dynamic>)['flag'] as String,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
