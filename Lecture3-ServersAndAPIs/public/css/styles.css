@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+nav.navbar-webmaster {
+  background: #1b242c;
+}
+nav.navbar-webmaster a {
+  color: #fff;
+}
+nav.navbar-webmaster ul.navbar-nav a {
+  color: #fff;
+  border-style: solid;
+  border-width: 2px 0 0 0;
+  border-color: #1b242c;
+}
+nav.navbar-webmaster ul.navbar-nav a:hover,
+nav.navbar-webmaster ul.navbar-nav a:visited,
+nav.navbar-webmaster ul.navbar-nav a:focus,
+nav.navbar-webmaster ul.navbar-nav a:active {
+  background: #3b4045;
+}
+nav.navbar-webmaster ul.navbar-nav a:hover {
+  border-color: #5fb000;
+}
+nav.navbar-webmaster li.divider {
+  background: #ccc;
+}
+nav.navbar-webmaster button.navbar-toggle {
+  background: #1b242c;
+  border-radius: 2px;
+}
+nav.navbar-webmaster button.navbar-toggle:hover {
+  background: #999;
+}
+nav.navbar-webmaster button.navbar-toggle > span.icon-bar {
+  background: #fff;
+}
+nav.navbar-webmaster ul.dropdown-menu {
+  border: 0;
+  background: #fff;
+  border-radius: 4px;
+  margin: 4px 0;
+  box-shadow: 0 0 4px 0 #ccc;
+}
+nav.navbar-webmaster ul.dropdown-menu > li > a {
+  color: #444;
+}
+nav.navbar-webmaster ul.dropdown-menu > li > a:hover {
+  background: #f14444;
+  color: #fff;
+}
+nav.navbar-webmaster span.badge {
+  background: #f14444;
+  font-weight: normal;
+  font-size: 11px;
+  margin: 0 4px;
+}
+nav.navbar-webmaster span.badge.new {
+  background: rgba(255, 0, 0, 0.8);
+  color: #fff;
+}
+
+.card {
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  padding: 0;
+  background-color: #252e3f;
+  color: white;
+}
+.card .header-bg {
+  /* This stretches the canvas across the entire hero unit */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px #fff solid;
+  /* This positions the canvas under the text */
+  z-index: 1;
+}
+.card .avatar {
+  position: relative;
+  margin-top: 15px;
+  z-index: 100;
+}
+.card .avatar img {
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 5px solid rgba(0, 0, 30, 0.8);
+}
+* {
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #fff;
+}
+
+/* form starting stylings ------------------------------- */
+.group {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+input {
+  font-size: 18px;
+  padding: 5px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* LABEL ======================================= */
+label {
+  color: #fff;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label,
+input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* BOTTOM BARS ================================= */
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #fff;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+/* active state */
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #fff;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #fff;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #fff;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+#panel {
+  border: 1px solid rgb(200, 200, 200);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+  background: -webkit-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%);
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(
+    90deg,
+    #2caab3 0%,
+    #2c8cb3 100%
+  ); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(
+    90deg,
+    #2caab3 0%,
+    #2c8cb3 100%
+  ); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(
+    90deg,
+    #2caab3 0%,
+    #2c8cb3 100%
+  ); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(
+    90deg,
+    #2caab3 0%,
+    #2c8cb3 100%
+  ); /* Standard syntax (must be last) */
+
+  border-radius: 4px;
+  top: 50px;
+}
+
+.top {
+  position: relative;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Roboto";
+  color: #347474;
+}

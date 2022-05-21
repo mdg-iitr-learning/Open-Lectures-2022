@@ -9,3 +9,7 @@ Flutter basics
 ## Lecture 2
 
 State Management and Firebase
+
+## Lecture 3
+
+Servers and APIs

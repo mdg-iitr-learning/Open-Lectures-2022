@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--Navigation bar-->
+    <% include ./includes/navbar.ejs %>
+  </head>
+
+  <body>
+    <h2 style="text-align: center; margin-top: 1.5rem; color: black">
+      Your Long URL has been created
+    </h2>
+    <br /><br />
+    <h5 style="text-align: center">
+      <a href="/<%=url.code%>"><%=url.longurl%></a>
+    </h5>
+
+    <!--Copy to clipboard-->
+    <div id="secretInfo" style="display: none"><%=url.longurl%></div>
+    <div class="wrapper" style="text-align: center">
+      <button type="button" class="btn btn-primary" id="btnCopy">Copy</button>
+    </div>
+    <!--End Copy to clipboard-->
+
+    <h3 style="text-align: center"><%=message%></h3>
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-offset-4 col-lg-4" id="panel">
+        <form action="/custom/<%= url.code %>" method="POST">
+          <div style="text-align: center">
+            <h3 style="margin-top: 1rem; color: white">Customise your URL</h3>
+          </div>
+          <br /><br />
+          <div class="group">
+            <input type="text" required name="custom" autocomplete="off" />
+            <label>Enter Custom URL code *</label>
+          </div>
+
+          <div class="group">
+            <button type="submit" class="btn btn-block btn-warning">
+              SUBMIT
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--Copy to clipboard-->
+    <script type="text/javascript">
+      var $body = document.getElementsByTagName("body")[0];
+      var $btnCopy = document.getElementById("btnCopy");
+      var secretInfo = document.getElementById("secretInfo").innerHTML;
+      console.log(secretInfo);
+      var copyToClipboard = function (secretInfo) {
+        var $tempInput = document.createElement("INPUT");
+        $body.appendChild($tempInput);
+        $tempInput.setAttribute("value", secretInfo);
+        $tempInput.select();
+        document.execCommand("copy");
+        $body.removeChild($tempInput);
+      };
+      $btnCopy.addEventListener("click", function (ev) {
+        copyToClipboard(secretInfo);
+        alert("Copied to clipboard");
+      });
+    </script>
+  </body>
+</html>
